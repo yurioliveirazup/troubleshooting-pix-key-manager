@@ -1,6 +1,8 @@
 package br.com.zup.edu.pixkeymanager.keys.retrieve;
 
 import br.com.zup.edu.pixkeymanager.keys.PixKey;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -8,6 +10,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class LocalCacheService {
+
+    private static final Logger LOG = LoggerFactory.getLogger(LocalCacheService.class);
+
 
     private final ConcurrentHashMap<String, PixKey> cache = new ConcurrentHashMap<>();
 
@@ -21,6 +26,7 @@ public class LocalCacheService {
     public void update(String pixId,
                        PixKey pixKey) {
 
+        LOG.info("[PIX][CACHE] Putting key '{}' in cache", pixId);
         cache.put(pixId, pixKey);
     }
 }

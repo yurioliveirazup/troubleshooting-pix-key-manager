@@ -23,16 +23,15 @@ public class FindPixKeyService {
 
         Optional<PixKey> cached = cacheService.findBy(pixId);
 
+        if (cached.isPresent()) {
+            return cached;
+        }
 
-        if (cached.isEmpty()) {
+        Optional<PixKey> possiblePixKey = repository.findById(UUID.fromString(pixId));
 
-            Optional<PixKey> possiblePixKey = repository.findById(UUID.fromString(pixId));
-
-            if (possiblePixKey.isPresent()) {
-
-                cacheService.update(pixId, possiblePixKey.get());
-                return possiblePixKey;
-            }
+        if (possiblePixKey.isPresent()) {
+            cacheService.update(pixId, possiblePixKey.get());
+            return possiblePixKey;
         }
 
         return Optional.empty();
