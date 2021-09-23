@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
@@ -28,5 +29,9 @@ public class LocalCacheService {
 
         LOG.info("[PIX][CACHE] Putting key '{}' in cache", pixId);
         cache.put(pixId, pixKey);
+    }
+
+    public void invalidate(UUID pixId) {
+        this.cache.remove(pixId.toString());
     }
 }
