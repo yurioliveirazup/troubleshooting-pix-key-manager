@@ -6,8 +6,10 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import static br.com.zup.edu.pixkeymanager.keys.KeyType.RANDOM;
 import static java.time.LocalDateTime.now;
 import static javax.persistence.EnumType.STRING;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "pix_key",
@@ -63,6 +65,15 @@ public class PixKey {
      */
     @Deprecated
     PixKey() { }
+
+
+    public void update(String key) {
+        if (type != RANDOM) {
+            throw new IllegalStateException("Pix key is not random, thus it must not be updated");
+        }
+        this.key = key;
+    }
+
 
     public UUID getId() {
         return id;

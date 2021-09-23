@@ -2,7 +2,8 @@ package br.com.zup.edu.pixkeymanager.keys;
 
 public enum KeyType {
 
-    DOCUMENT,
+    CPF,
+    CNPJ,
     CELLPHONE,
     EMAIL,
     RANDOM;

@@ -2,8 +2,13 @@ package br.com.zup.edu.pixkeymanager.keys;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import static javax.persistence.EnumType.STRING;
 
 @Embeddable
 public class Account {
@@ -21,6 +26,11 @@ public class Account {
     @Column(name = "owner_document", length = 11, nullable = false)
     private String document;
 
+    @NotNull
+    @Enumerated(STRING)
+    @Column(name = "owner_type", nullable = false)
+    private OwnerType ownerType;
+
     @NotBlank
     @Size(max = 4)
     @Column(name = "bank_branch", length = 4, nullable = false)
@@ -34,11 +44,13 @@ public class Account {
     public Account(String institution,
                    String owner,
                    String document,
+                   OwnerType ownerType,
                    String branch,
                    String number) {
         this.institution = institution;
         this.owner = owner;
         this.document = document;
+        this.ownerType = ownerType;
         this.branch = branch;
         this.number = number;
     }
@@ -67,5 +79,9 @@ public class Account {
 
     public String getNumber() {
         return number;
+    }
+
+    public OwnerType getOwnerType() {
+        return ownerType;
     }
 }
