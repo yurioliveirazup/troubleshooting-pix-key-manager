@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.StringJoiner;
 import java.util.UUID;
 
 import static br.com.zup.edu.pixkeymanager.keys.KeyType.RANDOM;
@@ -101,5 +102,18 @@ public class PixKey {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", PixKey.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("clientId=" + clientId)
+                .add("type=" + type)
+                .add("key='" + key + "'")
+                .add("accountType=" + accountType)
+                .add("account=" + account)
+                .add("createdAt=" + createdAt)
+                .toString();
     }
 }

@@ -17,21 +17,21 @@ public class LocalCacheService {
 
     private final ConcurrentHashMap<String, PixKey> cache = new ConcurrentHashMap<>();
 
-    public Optional<PixKey> findBy(String pixId) {
+    public Optional<PixKey> findBy(UUID pixId) {
 
-        PixKey pixKey = cache.get(pixId);
+        PixKey pixKey = cache.get(pixId.toString());
 
         return Optional.ofNullable(pixKey);
     }
 
-    public void update(String pixId,
-                       PixKey pixKey) {
+    public void update(PixKey pixKey) {
 
-        LOG.info("[PIX][CACHE] Putting key '{}' in cache", pixId);
-        cache.put(pixId, pixKey);
+        LOG.info("[PIX][CACHE] Putting key '{}' in cache", pixKey.getId());
+        cache.put(pixKey.getId().toString(), pixKey);
     }
 
     public void invalidate(UUID pixId) {
+        LOG.info("[PIX][CACHE] Removing key '{}' from cache", pixId);
         this.cache.remove(pixId.toString());
     }
 }

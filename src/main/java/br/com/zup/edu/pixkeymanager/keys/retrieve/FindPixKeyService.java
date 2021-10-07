@@ -19,7 +19,7 @@ public class FindPixKeyService {
         this.repository = repository;
     }
 
-    public Optional<PixKey> findPixKeyBy(String pixId) {
+    public Optional<PixKey> findPixKeyBy(UUID pixId) {
 
         Optional<PixKey> cached = cacheService.findBy(pixId);
 
@@ -27,10 +27,10 @@ public class FindPixKeyService {
             return cached;
         }
 
-        Optional<PixKey> possiblePixKey = repository.findById(UUID.fromString(pixId));
+        Optional<PixKey> possiblePixKey = repository.findById(pixId);
 
         if (possiblePixKey.isPresent()) {
-            cacheService.update(pixId, possiblePixKey.get());
+            cacheService.update(possiblePixKey.get());
             return possiblePixKey;
         }
 
